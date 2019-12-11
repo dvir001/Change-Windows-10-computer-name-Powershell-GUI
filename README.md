@@ -1,4 +1,4 @@
-# Change-Windows-10-and-server-2016-name-Powershell-GUI
+# Change-Windows-10-name-Powershell-GUI
 A simple tool to Change Windows 10 and server 2016 computer Name using Powershell GUI, with the option to copy the current name for changing and the option to either restart / shutdown or leave the computer on after the name change.
 
 This tool also make it so you dont need to restart your computer after a name change.
