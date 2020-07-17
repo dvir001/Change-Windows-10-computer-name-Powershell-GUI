@@ -1,14 +1,14 @@
 function Show-ChangeComputerName_psf {
 
 	#----------------------------------------------
-	#region Import the Assemblies
+	#Import the Assemblies
 	#----------------------------------------------
 	[void][reflection.assembly]::Load('System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
 	[void][reflection.assembly]::Load('System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 	#endregion Import Assemblies
 
 	#----------------------------------------------
-	#region Generated Form Objects
+	#Form Objects
 	#----------------------------------------------
 	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$formChangeComputerName = New-Object 'System.Windows.Forms.Form'
@@ -27,9 +27,7 @@ function Show-ChangeComputerName_psf {
 	# Script
 	#----------------------------------------------
 	
-	$formChangeComputerName_Load={
-		#TODO: Initialize Form Controls here
-		
+	$formChangeComputerName_Load={	
 	}
 	
 	$buttonOK_Click={
@@ -47,10 +45,10 @@ function Show-ChangeComputerName_psf {
 		}
 		if ($textboxComputerName_TextChanged)
 		{
-			#Take Computer name from text box
+			# Take Computer name from text box
 			$ComputerName = $textboxComputerName.Text
 			
-			#Ask if sure about new name
+			# Ask if sure about new name
 			Add-Type -AssemblyName PresentationCore, PresentationFramework
 			$ButtonType1 = [System.Windows.MessageBoxButton]::YesNo
 			$MessageIcon1 = [System.Windows.MessageBoxImage]::None
@@ -59,9 +57,9 @@ function Show-ChangeComputerName_psf {
 			$msgBoxInput1 = [System.Windows.MessageBox]::Show($MessageBody1, $MessageTitle1, $ButtonType1, $MessageIcon1)
 			switch ($msgBoxInput1)
 			{
-				#If click yes
+				# If click yes
 				'Yes' {
-					#Edit Registry files for changing computer name
+					# Edit Registry files for changing computer name
 					New-PSDrive -name HKU -PSProvider "Registry" -Root "HKEY_USERS"
 					
 					Remove-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "Hostname"
@@ -93,7 +91,7 @@ function Show-ChangeComputerName_psf {
 	}
 	
 	$radiobuttonStayOn_CheckedChanged={
-		#TODO: Place custom script here
+		# Empty
 		
 	}
 	
