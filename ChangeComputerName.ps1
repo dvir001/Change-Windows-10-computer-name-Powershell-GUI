@@ -1,10 +1,9 @@
-﻿function Show-ChangeComputerName_psf
+function Show-ChangeComputerName_psf
 {
 	# Import the Assemblies
 	[void][reflection.assembly]::Load('System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
 	[void][reflection.assembly]::Load('System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
-	# endregion Import Assemblies
-	
+
 	# Form Objects
 	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$formChangeComputerName = New-Object 'System.Windows.Forms.Form'
@@ -17,31 +16,21 @@
 	$labelEnterPCName = New-Object 'System.Windows.Forms.Label'
 	$buttonOK = New-Object 'System.Windows.Forms.Button'
 	$InitialFormWindowState = New-Object 'System.Windows.Forms.FormWindowState'
-	# endregion Generated Form Objects
-	
+
 	# Script
 	$formChangeComputerName_Load = {
 	}
 	
 	$buttonOK_Click = {
-		if ($radiobuttonShutdown.Checked)
-		{
-			$AfterShow = "Shutdown"
-		}
-		if ($radiobuttonRestart.Checked)
-		{
-			$AfterShow = "Restart"
-		}
-		if ($radiobuttonStayOn.Checked)
-		{
-			$AfterShow = "Stay On"
-		}
+		if ($radiobuttonShutdown.Checked) { $AfterShow = "Shutdown" }
+		if ($radiobuttonRestart.Checked) { $AfterShow = "Restart" }
+		if ($radiobuttonStayOn.Checked) { $AfterShow = "Stay On" }
 		if ($textboxComputerName_TextChanged)
 		{
-			# Take Computer name from text box
+			# Take the computer name from the text box
 			$ComputerName = $textboxComputerName.Text
 			
-			# Ask if sure about new name
+			# Ask to confrim the name change
 			Add-Type -AssemblyName PresentationCore, PresentationFramework
 			$ButtonType1 = [System.Windows.MessageBoxButton]::YesNo
 			$MessageIcon1 = [System.Windows.MessageBoxImage]::None
@@ -52,7 +41,7 @@
 			{
 				# If click yes
 				'Yes' {
-					# Edit Registry files for changing computer name
+					# Edit Registry files for changing the computer name
 					New-PSDrive -name HKU -PSProvider "Registry" -Root "HKEY_USERS"
 					
 					Remove-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "Hostname"
@@ -63,53 +52,29 @@
 					Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "NV Hostname" -value $ComputerName
 					Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name "AltDefaultDomainName" -value $ComputerName
 					Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name "DefaultDomainName" -value $ComputerName
-					#Set-ItemProperty -path "HKU:\.Default\Software\Microsoft\Windows Media\WMSDK\General" -name "Computername" -value $ComputerName
+					# Set-ItemProperty -path "HKU:\.Default\Software\Microsoft\Windows Media\WMSDK\General" -name "Computername" -value $ComputerName
 					
-					#Restart or Shutdown
-					if ($radiobuttonRestart.Checked)
-					{
-						Restart-Computer
-					}
-					if ($radiobuttonShutdown.Checked)
-					{
-						Stop-Computer
-					}
+					# Restart or Shutdown
+					if ($radiobuttonRestart.Checked) { Restart-Computer }
+					if ($radiobuttonShutdown.Checked) { Stop-Computer }
 				}
 				# If click No
-				'No' {
-					## Do nothing
-				}
+				'No' { <# Do nothing #> }
 			}
 		}
 	}
 	
-	$radiobuttonStayOn_CheckedChanged = {
-		# Empty
-	}
-	
-	$radiobuttonRestart_CheckedChanged = {
-		# Empty
-	}
-	
-	$radiobuttonShutdown_CheckedChanged = {
-		# Empty
-	}
-	
+	$radiobuttonStayOn_CheckedChanged = { <# Empty #> }
+	$radiobuttonRestart_CheckedChanged = { <# Empty #> }
+	$radiobuttonShutdown_CheckedChanged = { <# Empty #> }
 	$CopyPCName_Click = {
-		# Empty
 		$CurrentComputerName = $env:computername
 		$textboxComputerName.Text = $CurrentComputerName
 	}
 	
-	$textboxComputerName_TextChanged = {
-		# Empty
-	}
+	$textboxComputerName_TextChanged = { <# Empty #> }
 	
-	# --End User Generated Script--
-	#----------------------------------------------
-	# region Generated Events
-	#----------------------------------------------
-	
+	# Events
 	$Form_StateCorrection_Load =
 	{
 		# Correct the initial state of the form to prevent the .Net maximized form issue
@@ -133,11 +98,8 @@
 		}
 		catch { Out-Null <# Prevent PSScriptAnalyzer warning #> }
 	}
-	# endregion Generated Events
-	
-	#----------------------------------------------
+
 	# region Generated Form Code
-	#----------------------------------------------
 	$formChangeComputerName.SuspendLayout()
 	$groupbox1.SuspendLayout()
 
@@ -240,10 +202,7 @@
 	$buttonOK.add_Click($buttonOK_Click)
 	$groupbox1.ResumeLayout()
 	$formChangeComputerName.ResumeLayout()
-	#endregion Generated Form Code
-	
-	#----------------------------------------------
-	
+
 	# Save the initial state of the form
 	$InitialFormWindowState = $formChangeComputerName.WindowState
 	# Init the OnLoad event to correct the initial state of the form
@@ -252,7 +211,6 @@
 	$formChangeComputerName.add_FormClosed($Form_Cleanup_FormClosed)
 	# Show the Form
 	return $formChangeComputerName.ShowDialog()
-	
 }
 
 # Call the form
