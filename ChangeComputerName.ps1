@@ -1,14 +1,14 @@
-function Show-ChangeComputerName_psf {
-
+function Show-ChangeComputerName_psf
+{
 	#----------------------------------------------
-	#Import the Assemblies
+	# Import the Assemblies
 	#----------------------------------------------
 	[void][reflection.assembly]::Load('System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
 	[void][reflection.assembly]::Load('System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 	#endregion Import Assemblies
-
+	
 	#----------------------------------------------
-	#Form Objects
+	# Form Objects
 	#----------------------------------------------
 	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$formChangeComputerName = New-Object 'System.Windows.Forms.Form'
@@ -21,16 +21,16 @@ function Show-ChangeComputerName_psf {
 	$labelEnterPCName = New-Object 'System.Windows.Forms.Label'
 	$buttonOK = New-Object 'System.Windows.Forms.Button'
 	$InitialFormWindowState = New-Object 'System.Windows.Forms.FormWindowState'
-	#endregion Generated Form Objects
-
+	# endregion Generated Form Objects
+	
 	#----------------------------------------------
 	# Script
 	#----------------------------------------------
 	
-	$formChangeComputerName_Load={	
+	$formChangeComputerName_Load = {
 	}
 	
-	$buttonOK_Click={
+	$buttonOK_Click = {
 		if ($radiobuttonShutdown.Checked)
 		{
 			$AfterShow = "Shutdown"
@@ -82,7 +82,7 @@ function Show-ChangeComputerName_psf {
 						Stop-Computer
 					}
 				}
-				#If click No
+				# If click No
 				'No' {
 					## Do nothing
 				}
@@ -90,46 +90,42 @@ function Show-ChangeComputerName_psf {
 		}
 	}
 	
-	$radiobuttonStayOn_CheckedChanged={
+	$radiobuttonStayOn_CheckedChanged = {
 		# Empty
-		
 	}
 	
-	$radiobuttonRestart_CheckedChanged={
-		#TODO: Place custom script here
-		
+	$radiobuttonRestart_CheckedChanged = {
+		# Empty
 	}
 	
-	$radiobuttonShutdown_CheckedChanged={
-		#TODO: Place custom script here
-		
+	$radiobuttonShutdown_CheckedChanged = {
+		# Empty
 	}
 	
 	$CopyPCName_Click = {
-		#TODO: Place custom script here
+		# Empty
 		$CurrentComputerName = $env:computername
 		$textboxComputerName.Text = $CurrentComputerName
 	}
 	
-	$textboxComputerName_TextChanged={
-		#TODO: Place custom script here
-		
+	$textboxComputerName_TextChanged = {
+		# Empty
 	}
 	
 	# --End User Generated Script--
 	#----------------------------------------------
-	#region Generated Events
+	# region Generated Events
 	#----------------------------------------------
 	
-	$Form_StateCorrection_Load=
+	$Form_StateCorrection_Load =
 	{
-		#Correct the initial state of the form to prevent the .Net maximized form issue
+		# Correct the initial state of the form to prevent the .Net maximized form issue
 		$formChangeComputerName.WindowState = $InitialFormWindowState
 	}
 	
-	$Form_Cleanup_FormClosed=
+	$Form_Cleanup_FormClosed =
 	{
-		#Remove all event handlers from the controls
+		# Remove all event handlers from the controls
 		try
 		{
 			$radiobuttonStayOn.remove_CheckedChanged($radiobuttonStayOn_CheckedChanged)
@@ -144,16 +140,15 @@ function Show-ChangeComputerName_psf {
 		}
 		catch { Out-Null <# Prevent PSScriptAnalyzer warning #> }
 	}
-	#endregion Generated Events
-
+	# endregion Generated Events
+	
 	#----------------------------------------------
-	#region Generated Form Code
+	# region Generated Form Code
 	#----------------------------------------------
 	$formChangeComputerName.SuspendLayout()
 	$groupbox1.SuspendLayout()
-	#
+
 	# formChangeComputerName
-	#
 	$formChangeComputerName.Controls.Add($groupbox1)
 	$formChangeComputerName.Controls.Add($CopyPCName)
 	$formChangeComputerName.Controls.Add($textboxComputerName)
@@ -170,9 +165,8 @@ function Show-ChangeComputerName_psf {
 	$formChangeComputerName.StartPosition = 'CenterScreen'
 	$formChangeComputerName.Text = 'Change Computer Name'
 	$formChangeComputerName.add_Load($formChangeComputerName_Load)
-	#
+
 	# groupbox1
-	#
 	$groupbox1.Controls.Add($radiobuttonStayOn)
 	$groupbox1.Controls.Add($radiobuttonRestart)
 	$groupbox1.Controls.Add($radiobuttonShutdown)
@@ -183,9 +177,8 @@ function Show-ChangeComputerName_psf {
 	$groupbox1.TabStop = $False
 	$groupbox1.Text = 'After Name Change'
 	$groupbox1.UseCompatibleTextRendering = $True
-	#
+
 	# radiobuttonStayOn
-	#
 	$radiobuttonStayOn.Location = '20, 79'
 	$radiobuttonStayOn.Name = 'radiobuttonStayOn'
 	$radiobuttonStayOn.Size = '104, 24'
@@ -194,9 +187,8 @@ function Show-ChangeComputerName_psf {
 	$radiobuttonStayOn.UseCompatibleTextRendering = $True
 	$radiobuttonStayOn.UseVisualStyleBackColor = $True
 	$radiobuttonStayOn.add_CheckedChanged($radiobuttonStayOn_CheckedChanged)
-	#
+
 	# radiobuttonRestart
-	#
 	$radiobuttonRestart.Location = '20, 49'
 	$radiobuttonRestart.Name = 'radiobuttonRestart'
 	$radiobuttonRestart.Size = '104, 24'
@@ -205,9 +197,8 @@ function Show-ChangeComputerName_psf {
 	$radiobuttonRestart.UseCompatibleTextRendering = $True
 	$radiobuttonRestart.UseVisualStyleBackColor = $True
 	$radiobuttonRestart.add_CheckedChanged($radiobuttonRestart_CheckedChanged)
-	#
+
 	# radiobuttonShutdown
-	#
 	$radiobuttonShutdown.Location = '20, 19'
 	$radiobuttonShutdown.Name = 'radiobuttonShutdown'
 	$radiobuttonShutdown.Size = '104, 24'
@@ -216,9 +207,8 @@ function Show-ChangeComputerName_psf {
 	$radiobuttonShutdown.UseCompatibleTextRendering = $True
 	$radiobuttonShutdown.UseVisualStyleBackColor = $True
 	$radiobuttonShutdown.add_CheckedChanged($radiobuttonShutdown_CheckedChanged)
-	#
+
 	# CopyPCName
-	#
 	$CopyPCName.Location = '12, 29'
 	$CopyPCName.Name = 'CopyPCName'
 	$CopyPCName.Size = '86, 23'
@@ -227,17 +217,15 @@ function Show-ChangeComputerName_psf {
 	$CopyPCName.UseCompatibleTextRendering = $True
 	$CopyPCName.UseVisualStyleBackColor = $True
 	$CopyPCName.add_Click($CopyPCName_Click)
-	#
+	
 	# textboxComputerName
-	#
 	$textboxComputerName.Location = '104, 6'
 	$textboxComputerName.Name = 'textboxComputerName'
 	$textboxComputerName.Size = '174, 20'
 	$textboxComputerName.TabIndex = 2
 	$textboxComputerName.add_TextChanged($textboxComputerName_TextChanged)
-	#
+
 	# labelEnterPCName
-	#
 	$labelEnterPCName.AutoSize = $True
 	$labelEnterPCName.Location = '12, 9'
 	$labelEnterPCName.Name = 'labelEnterPCName'
@@ -245,9 +233,8 @@ function Show-ChangeComputerName_psf {
 	$labelEnterPCName.TabIndex = 1
 	$labelEnterPCName.Text = 'Enter PC Name:'
 	$labelEnterPCName.UseCompatibleTextRendering = $True
-	#
+	
 	# buttonOK
-	#
 	$buttonOK.Anchor = 'Bottom, Right'
 	$buttonOK.DialogResult = 'OK'
 	$buttonOK.Location = '197, 172'
@@ -261,19 +248,19 @@ function Show-ChangeComputerName_psf {
 	$groupbox1.ResumeLayout()
 	$formChangeComputerName.ResumeLayout()
 	#endregion Generated Form Code
-
+	
 	#----------------------------------------------
-
-	#Save the initial state of the form
+	
+	# Save the initial state of the form
 	$InitialFormWindowState = $formChangeComputerName.WindowState
-	#Init the OnLoad event to correct the initial state of the form
+	# Init the OnLoad event to correct the initial state of the form
 	$formChangeComputerName.add_Load($Form_StateCorrection_Load)
-	#Clean up the control events
+	# Clean up the control events
 	$formChangeComputerName.add_FormClosed($Form_Cleanup_FormClosed)
-	#Show the Form
+	# Show the Form
 	return $formChangeComputerName.ShowDialog()
+	
+}
 
-} #End Function
-
-#Call the form
+# Call the form
 Show-ChangeComputerName_psf | Out-Null
