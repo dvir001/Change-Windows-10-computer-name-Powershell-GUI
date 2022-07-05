@@ -3,10 +3,10 @@ A simple tool to Change Windows 10/11 and server 2016+ computer Name using Power
 
 This tool also make it so you dont need to restart your computer after a name change.
 
-<strong>Running this on a domain joined machine will break the trust.</strong>
-
 ![alt text](https://i.imgur.com/p1QwMOv.png)
 
 ![alt text](https://i.imgur.com/BHf7gjy.png)
 
 You can either use it as the original PS1 script or as an EXE file from the release page.
+
+<strong>Note: running this on a domain joined machine will break the domain trust.</strong>
